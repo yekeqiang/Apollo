@@ -1,0 +1,25 @@
+{
+  "id": "mysql",
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "mysql",
+      "network": "BRIDGE",
+      "portMappings": [{
+        "containerPort": 3306,
+        "hostPort": 0,
+        "protocol": "tcp"
+      }]
+    }
+  },
+  "env": {
+    "SERVICE_NAME": "mysql",
+    "MYSQL_DATABASE": "drupal",
+    "MYSQL_USER": "drupal",
+    "MYSQL_PASSWORD": "drupal",
+    "MYSQL_ROOT_PASSWORD": "password"
+  },
+  "cpus": 0.5,
+  "mem": 128.0,
+  "instances": 1
+}
