@@ -1,6 +1,6 @@
 ## Drupal / MySQL example
 
-This examples shows how to deploy a multi-tier Drupal web app using Apollo and Marathon Mesos framework.
+This example shows how to deploy a multi-tier Drupal web app using Apollo and Marathon Mesos framework.
 
 The example includes -
 
