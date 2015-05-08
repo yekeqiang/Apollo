@@ -1,7 +1,9 @@
 /* Base packer build we use for provisioning master instances */
 resource "atlas_artifact" "mesos-slave" {
-  name = "${var.atlas_artifact.slave}"
-  type = "digitalocean.image"
+  name    = "${var.atlas_artifact.slave}"
+  type    = "digitalocean.image"
+  version = "${var.atlas_artifact_version.slave}"
+  /*version = "1"*/
 }
 
 /* Mesos slave instances */
