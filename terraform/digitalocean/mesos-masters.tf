@@ -9,7 +9,6 @@ resource "atlas_artifact" "mesos-master" {
   name    = "${var.atlas_artifact.master}"
   type    = "digitalocean.image"
   version = "${var.atlas_artifact_version.master}"
-  /*version = "1"*/
 }
 
 /* Mesos master instances */
