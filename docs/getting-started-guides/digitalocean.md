@@ -6,23 +6,20 @@
 2. You need an Atlas account. Visit [https://atlas.hashicorp.com](https://atlas.hashicorp.com) to get started.
 4. You need to have installed and configured Terraform (>= 0.4.2 recommended). Visit [https://www.terraform.io/intro/getting-started/install.html](https://www.terraform.io/intro/getting-started/install.html) to get started.
 4. You need to have [Packer](https://www.packer.io) installed.
-5. You need to have [Python](https://www.python.org/) >= 2.7.5 installed.
-6. The latest version of Ansible (for provisioning) installed (>= 1.9.0) [http://docs.ansible.com/intro_installation.html](http://docs.ansible.com/intro_installation.html) to get started. Do not install 1.9.1 [https://github.com/ansible/ansible-modules-core/issues/1170](https://github.com/ansible/ansible-modules-core/issues/1170)
-7. You need to have [dopy](https://github.com/devo-ps/dopy) installed.
-8. You will need to have created an SSH RSA key pair for accessing your Digitalocean
+5. You need to have [Python](https://www.python.org/) >= 2.7.5 installed along with [pip](https://pip.pypa.io/en/latest/installing.html).
+6. You will need to have created an SSH RSA key pair for accessing your Digitalocean
 droplets. Execute ```ssh-keygen -t rsa``` to create a key pair.
 
-
-### Cluster Turnup
+### Cluster Startup
 
 #### Download Apollo
 
 ##### Install from source at head
 1. ```git clone https://github.com/Capgemini/apollo.git```
 2. ```cd apollo```
+3. ```pip install -r requirements.txt```
 
 #### Build the base image in Atlas
-```
 
 We are using [Atlas](https://atlas.hashicorp.com) to store artifacts (images) for
 builds.
@@ -55,7 +52,7 @@ To generate a v1 API credentials see [https://www.digitalocean.com/community/tut
 ```
 APOLLO_PROVIDER=digitalocean
 
-# Path to your public ssh key (created in step 8 above).
+# Path to your public ssh key (created in prerequisite step 8 above).
 DIGITALOCEAN_SSH_KEY=
 
 # Atlas variables.
@@ -65,7 +62,7 @@ ATLAS_ARTIFACT_MASTER=
 ATLAS_ARTIFACT_SLAVE=
 ```
 
-#### Turn up the cluster
+#### Start up the cluster
 ```
 sh bootstrap/apollo-launch.sh
 ```
