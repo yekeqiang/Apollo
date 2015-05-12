@@ -30,6 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     "zookeeper_servers:children" => ["mesos_masters"],
     "consul_servers:children"    => ["mesos_masters"],
     "weave_servers:children"     => ["mesos_slaves", "load_balancers"],
+    "marathon_servers:children"  => ["mesos_masters"], 
   }
 
   # Mesos master nodes
@@ -44,6 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
   end
   mesos_zk_url = "zk://"+master_infos.map{|master| master[:ip]+":2181"}.join(",")+"/mesos"
+  marathon_zk_url = "zk://"+master_infos.map{|master| master[:ip]+":2181"}.join(",")
   zookeeper_conf = master_infos.map{|master| "server.#{master[:zookeeper_id]}"+"="+master[:ip]+":2888:3888"}.join("\n")
   consul_join = master_infos.map{|master| master[:ip]}.join(" ")
 
@@ -75,6 +77,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             zookeeper_id: node[:zookeeper_id],
             zookeeper_conf: zookeeper_conf,
             mesos_zk_url: mesos_zk_url,
+            marathon_zk_url: marathon_zk_url,
             consul_join: consul_join,
             consul_advertise: node[:ip],
             mesos_local_address: node[:ip],
