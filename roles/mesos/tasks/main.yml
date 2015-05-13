@@ -43,6 +43,10 @@
     - Restart mesos master
   when: mesos_install_mode == "master"
 
+- name: remove mesos-master override
+  file: path=/etc/init/mesos-master.override state=absent
+  when: mesos_install_mode == "master"
+
 - name: Set Mesos Master Cluster name
   copy:
     content: "{{mesos_cluster_name}}"
@@ -75,6 +79,10 @@
   sudo: yes
   notify:
     - Restart mesos slave
+  when: mesos_install_mode == "slave"
+
+- name: remove mesos-slave override
+  file: path=/etc/init/mesos-slave.override state=absent
   when: mesos_install_mode == "slave"
 
 - name: set executor registration timeout
@@ -117,4 +125,20 @@
 - name: start mesos-slave (and enable it at boot)
   service: name=mesos-slave state=started enabled=yes
 
+- name: Create Mesos Slave work area
+  file:
+    dest: "{{mesos_slave_work_dir}}"
+    mode: 0755
+    state: directory
+  sudo: yes
+  when: mesos_install_mode == "slave"
 
+- name: Set Mesos Slave work area
+  copy:
+    content: "{{mesos_slave_work_dir}}"
+    dest: /etc/mesos-slave/work_dir
+    mode: 0644
+  sudo: yes
+  notify:
+    - Start mesos slave
+  when: mesos_install_mode == "slave"

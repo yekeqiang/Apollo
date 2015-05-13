@@ -15,6 +15,15 @@
     - Restart marathon
   sudo: yes
 
+- name: ensure marathon is running (and enable it at boot)
+  service: name=marathon state=started enabled=yes
+
+- name: remove marathon override
+  file: path=/etc/init/marathon.override state=absent
+
+- name: ensure marathon is running (and enable it at boot)
+  service: name=marathon state=started enabled=yes
+
 - name: Set Marathon consul service definition
   sudo: yes
   template:

@@ -5,12 +5,9 @@
 1. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
 2. You need an AWS [instance profile and role](http://docs.aws.amazon.com/IAM/latest/UserGuide/instance-profiles.html) with EC2 full access.
 3. You need an Atlas account. Visit [https://atlas.hashicorp.com](https://atlas.hashicorp.com) to get started.
-4. You need to have installed and configured Terraform (>= 0.4.2 recommended). Visit [https://www.terraform.io/intro/getting-started/install.html](https://www.terraform.io/intro/getting-started/install.html) to get started.
+4. You need to have installed and configured Terraform (>= 0.5.0 recommended). Visit [https://www.terraform.io/intro/getting-started/install.html](https://www.terraform.io/intro/getting-started/install.html) to get started.
 5. You will need a VPN client if you want to access the web interfaces for Mesos, Consul and Marathon. We recommend using Tunnelblick. Visit [https://code.google.com/p/tunnelblick/](https://code.google.com/p/tunnelblick/) to download and install.
-6. The latest version of Ansible (for provisioning) installed (>= 1.9.0) [http://docs.ansible.com/intro_installation.html](http://docs.ansible.com/intro_installation.html) to get started. Do not install 1.9.1 [https://github.com/ansible/ansible-modules-core/issues/1170](https://github.com/ansible/ansible-modules-core/issues/1170)
-7. [Python](https://www.python.org/) version (>= 2.7.5) installed.
-8. The Python AWS SDK [Boto](https://github.com/boto/boto) installed.
-This can be installed via pip - ```pip install boto```. This is used for the Ansible dynamic inventory.
+6. You need to have [Python](https://www.python.org/) >= 2.7.5 installed along with [pip](https://pip.pypa.io/en/latest/installing.html).
 
 ### Cluster Turnup
 
@@ -19,20 +16,27 @@ This can be installed via pip - ```pip install boto```. This is used for the Ans
 ##### Install from source at head
 1. ```git clone https://github.com/Capgemini/apollo.git```
 2. ```cd apollo```
+3. ```pip install -r requirements.txt```
 
 #### Set config
 
-Configuration can be set via environment variables. For a full list of available config
-options for AWS see ```bootstrap/aws/config-default.sh```
+Configuration can be set via environment variables.
+
+All variables following the pattern "TF_VAR_" will be available for Apollo in terraform, see [https://github.com/hashicorp/terraform/pull/1621#issuecomment-100825568](https://github.com/hashicorp/terraform/pull/1621#issuecomment-100825568)
+
+All variables following pattern "APOLLO_" will be available for Apollo in ansible.
+
+For a full list of default config options for AWS see ```bootstrap/aws/config-default.sh```
 
 As a minimum you will need to set these environment variables -
 
 ```
 APOLLO_PROVIDER=aws
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
-AWS_SSH_KEY
-AWS_SSH_KEY_NAME
+TF_VAR_user
+TF_VAR_access_key
+TF_VAR_secret_key
+TF_VAR_key_file
+TF_VAR_key_name
 ATLAS_TOKEN
 ```
 
