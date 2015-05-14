@@ -3,9 +3,6 @@
   roles:
     - dnsmasq
     - consul
-    - docker
-    - weave
-    - registrator
 
 - hosts: mesos_masters
   vars:
@@ -13,16 +10,21 @@
   roles:
     - { role: mesos, mesos_install_mode: "master", tags: ["mesos-master"] }
     - zookeeper
+    - docker
     - { role: '../plugins/marathon' }
-  vars:
-    consul_is_server: true
 
 - hosts: mesos_slaves
   roles:
+    - docker
     - { role: mesos, mesos_install_mode: "slave", tags: ["mesos-slave"] }
+    - weave
+    - registrator
 
 - hosts: load_balancers
   roles:
+    - docker
+    - weave
+    - registrator
     - haproxy
 
 - include: tests/test.yml
